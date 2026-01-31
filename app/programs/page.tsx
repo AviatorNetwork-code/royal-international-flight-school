@@ -1,7 +1,7 @@
 // app/programs/page.tsx
 import Link from "next/link";
 import AppShell from "../../components/ui/AppShell";
-import styles from "./programs.module.css";
+import styles from "./privatepage.module.css";
 
 type Program = {
   title: string;
