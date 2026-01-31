@@ -3,8 +3,6 @@ import Link from "next/link";
 import AppShell from "../../components/ui/AppShell";
 import styles from "./programs.module.css";
 
-
-
 type Program = {
   title: string;
   subtitle: string;
@@ -124,8 +122,8 @@ export default function ProgramsPage() {
                 <p className={styles.kicker}>Training Programs</p>
                 <h1 className={styles.h1}>Choose your flight training path</h1>
                 <p className={styles.lede}>
-                  From first flight to professional training, our programs are built
-                  around clear milestones, strong instruction, and a safety-first culture.
+                  From first flight to professional training, our programs are built around clear
+                  milestones, strong instruction, and a safety-first culture.
                 </p>
 
                 <div className={styles.heroCtas}>
@@ -157,20 +155,19 @@ export default function ProgramsPage() {
                 <div className={styles.heroCardInner}>
                   <h2 className={styles.h2}>Not sure where to start?</h2>
                   <p className={styles.muted}>
-                    Book a Discovery Flight or talk to admissions. We’ll recommend a
-                    training plan based on your goals and availability.
+                    Book a Discovery Flight or talk to admissions. We’ll recommend a training plan
+                    based on your goals and availability.
                   </p>
+
                   <div className={styles.heroCardCtas}>
-                    <Link
-                      className={`${styles.btn} ${styles.btnPrimary}`}
-                      href="/programs/discovery-flight"
-                    >
+                    <Link className={`${styles.btn} ${styles.btnPrimary}`} href="/programs/discovery-flight">
                       Discovery Flight
                     </Link>
                     <Link className={`${styles.btn} ${styles.btnSecondary}`} href="/contact">
                       Talk to admissions
                     </Link>
                   </div>
+
                   <div className={styles.note}>
                     <span className={styles.noteDot} />
                     <span className={styles.noteText}>
@@ -244,8 +241,8 @@ export default function ProgramsPage() {
               <div>
                 <h2 className={styles.h2}>How training works</h2>
                 <p className={styles.muted}>
-                  We keep training straightforward: clear goals, consistent standards,
-                  and coaching that builds confidence.
+                  We keep training straightforward: clear goals, consistent standards, and coaching
+                  that builds confidence.
                 </p>
 
                 <ol className={styles.steps}>
@@ -263,6 +260,7 @@ export default function ProgramsPage() {
                 <p className={styles.muted}>
                   Requirements vary by certificate/rating. These are common starting points:
                 </p>
+
                 <ul className={styles.reqList}>
                   {requirements.map((r) => (
                     <li key={r} className={styles.reqItem}>
@@ -297,6 +295,7 @@ export default function ProgramsPage() {
                   Tell us your goals and availability — we’ll recommend the right program and next steps.
                 </p>
               </div>
+
               <div className={styles.ctaButtons}>
                 <Link className={`${styles.btn} ${styles.btnPrimary}`} href="/contact">
                   Schedule a visit
