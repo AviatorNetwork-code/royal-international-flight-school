@@ -2,6 +2,7 @@ import React from "react";
 import AppShell from "../../../components/ui/AppShell";
 import styles from "./instrumentpage.module.css";
 
+
 export const metadata = {
   title: "Instrument Rating Program | Royal International Flight School",
   description:

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import styles from "./discoveryFlight.module.css";
 
+
 const highlights = [
   {
     title: "Preflight briefing",

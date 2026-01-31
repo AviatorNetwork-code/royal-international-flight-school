@@ -2,6 +2,7 @@ import React from "react";
 import AppShell from "../../../components/ui/AppShell";
 import styles from "./commercialpage.module.css";
 
+
 export const metadata = {
   title: "Commercial Pilot Program | Royal International Flight School",
   description:

@@ -2,6 +2,7 @@ import React from "react";
 import AppShell from "../../../components/ui/AppShell";
 import styles from "./cfipage.module.css";
 
+
 export const metadata = {
   title: "CFI / CFII Program | Royal International Flight School",
   description:
