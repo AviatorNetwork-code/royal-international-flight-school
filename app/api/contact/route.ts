@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    // honeypot
+    // Honeypot
     if (body?.honey) return NextResponse.json({ ok: true });
 
     const name = String(body?.name || "").trim();
@@ -20,22 +20,27 @@ export async function POST(req: Request) {
 
     if (!name || !email || !message) {
       return NextResponse.json(
-        { error: "Please fill out name, email, and message." },
+        { ok: false, error: "Please fill out name, email, and message." },
         { status: 400 }
       );
     }
 
-    const to = process.env.CONTACT_TO_EMAIL;
+    const apiKey = process.env.RESEND_API_KEY;
     const from = process.env.MAIL_FROM;
+    const to = process.env.CONTACT_TO_EMAIL;
 
-    if (!process.env.RESEND_API_KEY || !to || !from) {
-      console.error("Missing env:", {
-        RESEND_API_KEY: !!process.env.RESEND_API_KEY,
-        CONTACT_TO_EMAIL: !!to,
-        MAIL_FROM: !!from,
-      });
+    // ✅ Safe debug: tells us what's missing (no secrets)
+    if (!apiKey || !from || !to) {
       return NextResponse.json(
-        { error: "Server email is not configured." },
+        {
+          ok: false,
+          error: "Email service not configured.",
+          debug: {
+            RESEND_API_KEY: !!apiKey,
+            MAIL_FROM: !!from,
+            CONTACT_TO_EMAIL: !!to,
+          },
+        },
         { status: 500 }
       );
     }
@@ -57,19 +62,40 @@ export async function POST(req: Request) {
       `Sent from Royal International Flight School website`,
     ].join("\n");
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from,
       to: [to, "info@royalinternationalflightschool.com"],
-      reply_to: email,
+      replyTo: email,
       subject,
       text,
     });
 
+    // Resend returns { data, error }
+    if (result.error) {
+      console.error("RESEND ERROR:", result.error);
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Email provider rejected the request.",
+          debug: {
+            name: result.error.name,
+            message: result.error.message,
+          },
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({ ok: true });
   } catch (err: any) {
     console.error("CONTACT API ERROR:", err?.message || err);
+
     return NextResponse.json(
-      { error: "Server error. Please try again later." },
+      {
+        ok: false,
+        error: "Server error. Please try again later.",
+        debug: { message: err?.message || "unknown" },
+      },
       { status: 500 }
     );
   }
