@@ -3,8 +3,6 @@ import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -26,24 +24,15 @@ export async function POST(req: Request) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    const from = process.env.MAIL_FROM;
-    const to = process.env.CONTACT_TO_EMAIL;
 
-    // ✅ Safe debug: tells us what's missing (no secrets)
-    if (!apiKey || !from || !to) {
+    if (!apiKey) {
       return NextResponse.json(
-        {
-          ok: false,
-          error: "Email service not configured.",
-          debug: {
-            RESEND_API_KEY: !!apiKey,
-            MAIL_FROM: !!from,
-            CONTACT_TO_EMAIL: !!to,
-          },
-        },
+        { ok: false, error: "Email service not configured." },
         { status: 500 }
       );
     }
+
+    const resend = new Resend(apiKey);
 
     const subject = `New Contact Form Submission — ${name}`;
 
@@ -62,40 +51,20 @@ export async function POST(req: Request) {
       `Sent from Royal International Flight School website`,
     ].join("\n");
 
-    const result = await resend.emails.send({
-      from,
-      to: [to, "info@royalinternationalflightschool.com"],
+    // 🔴 THIS IS WHERE YOUR SNIPPET GOES
+    await resend.emails.send({
+      from: "info@royalinternationalflightschool.com",
+      to: ["info@royalinternationalflightschool.com"],
       replyTo: email,
       subject,
       text,
     });
 
-    // Resend returns { data, error }
-    if (result.error) {
-      console.error("RESEND ERROR:", result.error);
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "Email provider rejected the request.",
-          debug: {
-            name: result.error.name,
-            message: result.error.message,
-          },
-        },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    console.error("CONTACT API ERROR:", err?.message || err);
-
+  } catch (err) {
+    console.error("CONTACT API ERROR:", err);
     return NextResponse.json(
-      {
-        ok: false,
-        error: "Server error. Please try again later.",
-        debug: { message: err?.message || "unknown" },
-      },
+      { ok: false, error: "Server error. Please try again later." },
       { status: 500 }
     );
   }

@@ -353,7 +353,6 @@ export default function AppHeader() {
               alt="Royal International Flight School"
               className="brandLogo"
               style={{
-                height: 180, // desktop size
                 width: "auto",
                 display: "block",
                 transform: "translateY(18px)",
@@ -397,7 +396,7 @@ export default function AppHeader() {
             </Link>
           </div>
 
-          {/* ✅ MOBILE RIGHT CTA ONLY (burger menu holds everything else) */}
+          {/* MOBILE RIGHT CTA ONLY */}
           <div className="mobileOnly" style={{ display: "flex", justifyContent: "flex-end" }}>
             <Link href="/book-orientation" style={ctaBtn} onClick={closeAllMenus}>
               Book
@@ -527,21 +526,38 @@ export default function AppHeader() {
       )}
 
       <style>{`
-        @media (max-width: 980px) {
-          .desktopOnly { display: none !important; }
-          .burgerOnly { display: inline-flex !important; }
-          .mobileOnly { display: flex !important; }
+  @media (max-width: 980px) {
+    .desktopOnly { display: none !important; }
+    .burgerOnly { display: inline-flex !important; }
+    .mobileOnly { display: flex !important; }
 
-          /* ✅ Mobile header is compact + burger-only */
-          .headerGrid { height: 78px !important; padding: 0 14px !important; }
-          .brandLogo { height: 64px !important; transform: translateY(0px) !important; }
-        }
-        @media (min-width: 981px) {
-          .desktopOnly { display: flex !important; }
-          .burgerOnly { display: none !important; }
-          .mobileOnly { display: none !important; }
-        }
-      `}</style>
+    /* 🔥 Mobile header */
+    .headerGrid {
+      height: 96px !important;
+      padding: 0 14px !important;
+    }
+
+    /* 🔥 Logo 2.2× bigger */
+    .brandLogo {
+      height: 140px !important;
+      transform: translateY(8px) !important;
+    }
+  }
+
+  @media (max-width: 520px) {
+    /* Slightly smaller for very small phones */
+    .brandLogo {
+      height: 120px !important;
+    }
+  }
+
+  @media (min-width: 981px) {
+    .desktopOnly { display: flex !important; }
+    .burgerOnly { display: none !important; }
+    .mobileOnly { display: none !important; }
+  }
+`}</style>
+
     </header>
   );
 }
@@ -759,4 +775,3 @@ function BurgerIcon({ open }: { open: boolean }) {
     </span>
   );
 }
-  
