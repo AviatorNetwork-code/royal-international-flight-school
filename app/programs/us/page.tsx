@@ -1,7 +1,13 @@
-// app/programs/page.tsx
+// app/programs/us/page.tsx
 import Link from "next/link";
-import AppShell from "../../components/ui/AppShell";
-import styles from "./programs.module.css";
+import AppShell from "../../../components/ui/AppShell";
+import styles from "./page.module.css";
+
+export const metadata = {
+  title: "US Training Programs | Royal International Flight School",
+  description:
+    "Explore our Part 61 US-based flight training programs: Private, Instrument, Commercial, CFI/CFII, and Discovery Flight.",
+};
 
 type Program = {
   title: string;
@@ -15,17 +21,17 @@ type Program = {
 
 const programs: Program[] = [
   {
-    title: "Private Pilot License (PPL)",
+    title: "Private Pilot (PPL)",
     subtitle: "Start flying and build strong fundamentals with structured training.",
     duration: "Typical: 2–6 months",
-    idealFor: "New pilots, hobby flyers, first step to aviation career",
+    idealFor: "New pilots, hobby flyers, career-track students",
     highlights: [
       "FAA-aligned ground & flight training",
       "Safety-first cockpit habits",
       "Flexible scheduling",
       "Progress milestones & stage checks",
     ],
-    href: "/programs/private",
+    href: "/programs/us/private",
     badge: "Most Popular",
   },
   {
@@ -36,10 +42,10 @@ const programs: Program[] = [
     highlights: [
       "IFR procedures & approaches",
       "Scenario-based training",
-      "Flight planning & weather decision-making",
-      "Checkride preparation support",
+      "Flight planning + weather decision-making",
+      "Checkride prep structure",
     ],
-    href: "/programs/instrument",
+    href: "/programs/us/instrument",
   },
   {
     title: "Commercial Pilot (CPL)",
@@ -50,22 +56,22 @@ const programs: Program[] = [
       "Commercial maneuvers & standards",
       "Professional airmanship",
       "Career-oriented training plan",
-      "Hours building strategy",
+      "Hours-building strategy",
     ],
-    href: "/programs/commercial",
+    href: "/programs/us/commercial",
   },
   {
     title: "CFI / CFII",
     subtitle: "Become an instructor: teach with standards, confidence, and professionalism.",
     duration: "Typical: 4–10 weeks",
-    idealFor: "Career-track pilots building hours and instructional skill",
+    idealFor: "Career-track pilots building hours and teaching skill",
     highlights: [
       "FOI + teaching technique",
       "Right-seat proficiency",
       "Mock orals + mock teaching",
       "CFII add-on IFR teaching",
     ],
-    href: "/programs/cfi",
+    href: "/programs/us/cfi",
     badge: "Career Track",
   },
   {
@@ -77,29 +83,29 @@ const programs: Program[] = [
       "Preflight briefing included",
       "Fly with a certified instructor",
       "Great gift option",
-      "Next steps & training roadmap",
+      "Clear next steps after flight",
     ],
-    href: "/programs/discovery-flight",
+    href: "/programs/us/discovery-flight",
     badge: "Best First Step",
   },
 ];
 
 const steps = [
   {
-    title: "1) Choose your program",
-    text: "Pick the path that matches your goals—recreational, career, or skills upgrade.",
+    title: "1) Pick your goal",
+    text: "Recreational flying, career-track training, or upgrading skills — we’ll guide your path.",
   },
   {
-    title: "2) Schedule a visit",
-    text: "Meet the team, tour the aircraft, and plan a realistic training timeline.",
+    title: "2) Set your training rhythm",
+    text: "Consistency is everything. We help you pick a schedule that matches your life.",
   },
   {
-    title: "3) Start training",
-    text: "Follow a structured syllabus with progress checks and instructor guidance.",
+    title: "3) Train with milestones",
+    text: "Every lesson has a purpose: objectives, standards, and an honest debrief.",
   },
   {
-    title: "4) Checkride prep",
-    text: "We help you prepare with mock orals, flight reviews, and targeted practice.",
+    title: "4) Checkride-ready",
+    text: "We prep to ACS standards with mock orals, flight polish, and readiness reviews.",
   },
 ];
 
@@ -107,23 +113,24 @@ const requirements = [
   "Valid government photo ID",
   "English proficiency (FAA requirement)",
   "Medical certificate requirements vary by goal (we’ll guide you)",
-  "Positive learning mindset and commitment to safety",
+  "Commitment to safety + consistent training",
 ];
 
-export default function ProgramsPage() {
+export default function USProgramsPage() {
   return (
     <AppShell>
       <main className={styles.page}>
-        {/* Hero */}
+        {/* HERO */}
         <section className={styles.hero}>
           <div className={styles.container}>
             <div className={styles.heroGrid}>
               <div>
-                <p className={styles.kicker}>Training Programs</p>
-                <h1 className={styles.h1}>Choose your flight training path</h1>
+                <p className={styles.kicker}>Programs • United States</p>
+                <h1 className={styles.h1}>US Flight Training Programs (Part 61)</h1>
                 <p className={styles.lede}>
-                  From first flight to professional training, our programs are built around clear
-                  milestones, strong instruction, and a safety-first culture.
+                  Train with structure, professionalism, and clear standards. Our US programs are
+                  built around consistent instruction, safety-first decision-making, and realistic
+                  training timelines.
                 </p>
 
                 <div className={styles.heroCtas}>
@@ -137,12 +144,12 @@ export default function ProgramsPage() {
 
                 <div className={styles.quickFacts}>
                   <div className={styles.fact}>
-                    <span className={styles.factLabel}>Flexible</span>
-                    <span className={styles.factValue}>Training schedules</span>
+                    <span className={styles.factLabel}>Part 61</span>
+                    <span className={styles.factValue}>Flexible training</span>
                   </div>
                   <div className={styles.fact}>
                     <span className={styles.factLabel}>Structured</span>
-                    <span className={styles.factValue}>Syllabus &amp; milestones</span>
+                    <span className={styles.factValue}>Milestones + debriefs</span>
                   </div>
                   <div className={styles.fact}>
                     <span className={styles.factLabel}>Safety</span>
@@ -158,9 +165,11 @@ export default function ProgramsPage() {
                     Book a Discovery Flight or talk to admissions. We’ll recommend a training plan
                     based on your goals and availability.
                   </p>
-
                   <div className={styles.heroCardCtas}>
-                    <Link className={`${styles.btn} ${styles.btnPrimary}`} href="/programs/discovery-flight">
+                    <Link
+                      className={`${styles.btn} ${styles.btnPrimary}`}
+                      href="/programs/us/discovery-flight"
+                    >
                       Discovery Flight
                     </Link>
                     <Link className={`${styles.btn} ${styles.btnSecondary}`} href="/contact">
@@ -171,7 +180,7 @@ export default function ProgramsPage() {
                   <div className={styles.note}>
                     <span className={styles.noteDot} />
                     <span className={styles.noteText}>
-                      Career track? Ask about a step-by-step roadmap from PPL → IR → CPL.
+                      Career track? Ask about a roadmap from PPL → IR → CPL → CFI.
                     </span>
                   </div>
                 </div>
@@ -180,7 +189,7 @@ export default function ProgramsPage() {
           </div>
         </section>
 
-        {/* Programs Grid */}
+        {/* PROGRAMS GRID */}
         <section className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHead}>
@@ -234,15 +243,15 @@ export default function ProgramsPage() {
           </div>
         </section>
 
-        {/* How it works */}
+        {/* HOW IT WORKS */}
         <section className={styles.sectionAlt}>
           <div className={styles.container}>
             <div className={styles.twoCol}>
               <div>
                 <h2 className={styles.h2}>How training works</h2>
                 <p className={styles.muted}>
-                  We keep training straightforward: clear goals, consistent standards, and coaching
-                  that builds confidence.
+                  We keep training straightforward: clear objectives, consistent standards, and
+                  coaching that builds confidence.
                 </p>
 
                 <ol className={styles.steps}>
@@ -260,7 +269,6 @@ export default function ProgramsPage() {
                 <p className={styles.muted}>
                   Requirements vary by certificate/rating. These are common starting points:
                 </p>
-
                 <ul className={styles.reqList}>
                   {requirements.map((r) => (
                     <li key={r} className={styles.reqItem}>
@@ -285,7 +293,7 @@ export default function ProgramsPage() {
           </div>
         </section>
 
-        {/* Bottom CTA */}
+        {/* CTA */}
         <section className={styles.cta}>
           <div className={styles.container}>
             <div className={styles.ctaInner}>
@@ -295,12 +303,11 @@ export default function ProgramsPage() {
                   Tell us your goals and availability — we’ll recommend the right program and next steps.
                 </p>
               </div>
-
               <div className={styles.ctaButtons}>
                 <Link className={`${styles.btn} ${styles.btnPrimary}`} href="/contact">
                   Schedule a visit
                 </Link>
-                <Link className={`${styles.btn} ${styles.btnSecondary}`} href="/programs/discovery-flight">
+                <Link className={`${styles.btn} ${styles.btnSecondary}`} href="/programs/us/discovery-flight">
                   Book a Discovery Flight
                 </Link>
               </div>

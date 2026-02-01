@@ -1,5 +1,5 @@
 import React from "react";
-import AppShell from "../../../components/ui/AppShell";
+import AppShell from "../../../../components/ui/AppShell";
 import styles from "./privatepage.module.css";
 
 

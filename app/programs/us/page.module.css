@@ -1,0 +1,415 @@
+/* app/programs/us/page.module.css */
+
+.page {
+  color: #0f172a;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+/* Keep content from feeling squeezed inside AppShell */
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* HERO */
+.hero {
+  padding: 10px 0 22px;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.9fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.65);
+  margin-bottom: 10px;
+}
+
+.h1 {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 54px;
+  line-height: 1.04;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(15, 23, 42, 0.78);
+  margin: 0 0 18px;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0 16px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  text-decoration: none;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.12);
+}
+
+.btnPrimary {
+  background: #d4af37;
+  color: #061326;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.btnSecondary {
+  background: rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+.btnGhost {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  color: #0f172a;
+}
+
+/* QUICK FACTS */
+.quickFacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.fact {
+  background: rgba(255, 255, 255, 0.66);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 16px;
+  padding: 12px 12px;
+}
+
+.factLabel {
+  display: block;
+  font-weight: 950;
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.65);
+  margin-bottom: 6px;
+}
+
+.factValue {
+  display: block;
+  font-weight: 950;
+  font-size: 14px;
+}
+
+/* HERO SIDE CARD — this gives the “white shade” you want */
+.heroCard {
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+}
+
+.heroCardInner {
+  padding: 18px 18px;
+}
+
+.h2 {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 26px;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.muted {
+  color: rgba(15, 23, 42, 0.70);
+  line-height: 1.65;
+}
+
+.heroCardCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 14px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.noteDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #d4af37;
+  margin-top: 6px;
+  flex: 0 0 auto;
+}
+
+.noteText {
+  font-weight: 850;
+  color: rgba(15, 23, 42, 0.78);
+}
+
+/* SECTIONS */
+.section {
+  padding: 18px 0 10px;
+}
+
+.sectionAlt {
+  padding: 18px 0 10px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 4px 0 12px;
+}
+
+/* PROGRAM GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.10);
+  padding: 16px;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.cardSub {
+  margin: 0;
+  color: rgba(15, 23, 42, 0.70);
+  line-height: 1.55;
+}
+
+.badge {
+  background: rgba(212, 175, 55, 0.18);
+  color: #061326;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  font-weight: 950;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0 10px;
+}
+
+.metaLabel {
+  display: block;
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.60);
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.metaValue {
+  display: block;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.listItem {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: rgba(15, 23, 42, 0.78);
+  line-height: 1.5;
+}
+
+.bullet {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #061326;
+  font-weight: 950;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cardLink {
+  font-weight: 950;
+  text-decoration: none;
+  color: #23436e;
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* HOW IT WORKS */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.steps {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+  color: rgba(15, 23, 42, 0.82);
+}
+
+.stepTitle {
+  font-weight: 950;
+  margin-bottom: 3px;
+}
+
+.stepText {
+  color: rgba(15, 23, 42, 0.72);
+  line-height: 1.55;
+}
+
+.panel {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.10);
+  padding: 16px;
+}
+
+.reqList {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.reqItem {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.panelCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* CTA */
+.cta {
+  padding: 18px 0 6px;
+}
+
+.ctaInner {
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.14);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 980px) {
+  .h1 {
+    font-size: 40px;
+  }
+
+  .heroGrid,
+  .twoCol {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quickFacts {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
