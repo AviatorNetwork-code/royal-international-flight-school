@@ -9,6 +9,8 @@ const BRAND = {
   gold: "#D4AF37",
 };
 
+type MenuItem = { label: string; href: string };
+
 const linkStyle: React.CSSProperties = {
   color: "rgba(255,255,255,0.92)",
   textDecoration: "none",
@@ -20,14 +22,9 @@ const linkStyle: React.CSSProperties = {
 
 const navBtnStyle: React.CSSProperties = {
   ...linkStyle,
-  padding: "10px 16px",
-  borderRadius: 999,
   cursor: "pointer",
-  border: "1px solid rgba(255,255,255,0.22)",
-  background: "rgba(255,255,255,0.10)",
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 8,
+  border: "1px solid rgba(255,255,255,0.14)",
+  background: "rgba(255,255,255,0.06)",
 };
 
 const ctaBtn: React.CSSProperties = {
@@ -53,7 +50,7 @@ const pillBtn: React.CSSProperties = {
   fontWeight: 900,
   fontSize: 13,
   textDecoration: "none",
-  background: "rgba(255,255,255,0.10)",
+  background: "rgba(255,255,255,0.06)",
   whiteSpace: "nowrap",
   display: "inline-flex",
   alignItems: "center",
@@ -70,28 +67,26 @@ const ddItem: React.CSSProperties = {
 
 const ddDivider: React.CSSProperties = { height: 1, background: "rgba(15,39,66,0.12)" };
 
-type MenuItem = { label: string; href: string };
-
 export default function AppHeader() {
   const pathname = usePathname();
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname?.startsWith(href));
 
+  // US Residents programs
   const usProgramsItems: MenuItem[] = useMemo(
     () => [
-      { label: "U.S. Programs Overview", href: "/programs/us" },
+      { label: "Programs Overview", href: "/programs" },
       { label: "Private Pilot", href: "/programs/us/private" },
       { label: "Instrument Rating", href: "/programs/us/instrument" },
       { label: "Commercial Pilot", href: "/programs/us/commercial" },
       { label: "CFI / CFII", href: "/programs/us/cfi" },
-      { label: "Discovery Flight", href: "/programs/us/discovery-flight" },
     ],
     []
   );
 
+  // International Students programs (SEVP)
   const intlProgramsItems: MenuItem[] = useMemo(
     () => [
       { label: "International Overview", href: "/programs/international" },
-      { label: "Detailed Requirements", href: "/programs/international/details" },
       { label: "Private Pilot", href: "/programs/international/private" },
       { label: "Instrument Rating", href: "/programs/international/instrument" },
       { label: "Commercial Pilot", href: "/programs/international/commercial" },
@@ -112,9 +107,13 @@ export default function AppHeader() {
 
   const [programsOpen, setProgramsOpen] = useState(false);
   const [studentsOpen, setStudentsOpen] = useState(false);
+
+  // Desktop Programs flyout state
   const [programsGroup, setProgramsGroup] = useState<"us" | "intl">("us");
 
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Mobile nested accordions
   const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
   const [mobileProgramsUSOpen, setMobileProgramsUSOpen] = useState(false);
   const [mobileProgramsIntlOpen, setMobileProgramsIntlOpen] = useState(false);
@@ -174,29 +173,21 @@ export default function AppHeader() {
     setMobileStudentsOpen(false);
   }
 
+  function openProgramsFlyout() {
+    setProgramsOpen(true);
+    setStudentsOpen(false);
+  }
+  function closeProgramsFlyout() {
+    setProgramsOpen(false);
+  }
+
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 50 }}>
-      <div
-        style={{
-          background: BRAND.navy,
-          borderBottom: "1px solid rgba(212,175,55,0.35)",
-        }}
-      >
-        <div
-          className="headerGrid"
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            height: 120,
-            padding: "0 24px",
-            display: "grid",
-            gridTemplateColumns: "1fr auto 1fr",
-            alignItems: "center",
-            overflow: "visible",
-          }}
-        >
-          {/* LEFT: Desktop nav + Mobile burger */}
+    <header className="appHeader" style={{ position: "sticky", top: 0, zIndex: 50 }}>
+      <div className="topBar">
+        <div className="barInner">
+          {/* LEFT */}
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Burger (mobile only) */}
             <button
               data-burger="true"
               type="button"
@@ -207,31 +198,19 @@ export default function AppHeader() {
               }}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.18)",
-                background: "rgba(255,255,255,0.06)",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-              className="burgerOnly"
+              className="burgerOnly burgerBtn"
             >
               <BurgerIcon open={mobileOpen} />
             </button>
 
-            {/* Desktop nav only */}
-            <nav className="desktopOnly" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            {/* Desktop nav (LEFT) */}
+            <nav className="desktopOnly" style={{ gap: 10, alignItems: "center" }}>
               <Link
                 href="/"
                 style={{
                   ...linkStyle,
                   textDecoration: isActive("/") ? "underline" : "none",
                   textUnderlineOffset: 8,
-                  textDecorationThickness: 2,
                 }}
               >
                 Home
@@ -243,13 +222,12 @@ export default function AppHeader() {
                   ...linkStyle,
                   textDecoration: isActive("/about-us") ? "underline" : "none",
                   textUnderlineOffset: 8,
-                  textDecorationThickness: 2,
                 }}
               >
                 About Us
               </Link>
 
-              {/* Programs */}
+              {/* Programs flyout dropdown */}
               <div ref={programsRef} style={{ position: "relative" }}>
                 <button
                   type="button"
@@ -258,16 +236,23 @@ export default function AppHeader() {
                     setStudentsOpen(false);
                     setProgramsGroup("us");
                   }}
+                  onMouseEnter={openProgramsFlyout}
                   style={navBtnStyle}
                   aria-haspopup="menu"
                   aria-expanded={programsOpen}
                   aria-controls="programs-flyout"
                 >
-                  Programs <span style={{ opacity: 0.9 }}>▼</span>
+                  Programs ▾
                 </button>
 
                 {programsOpen && (
-                  <div id="programs-flyout" role="menu" style={flyoutShellStyle()}>
+                  <div
+                    id="programs-flyout"
+                    role="menu"
+                    style={flyoutShellStyle()}
+                    onMouseEnter={openProgramsFlyout}
+                    onMouseLeave={closeProgramsFlyout}
+                  >
                     <div style={flyoutLeftStyle()}>
                       <FlyoutGroupRow
                         label="U.S. Residents"
@@ -279,6 +264,17 @@ export default function AppHeader() {
                         active={programsGroup === "intl"}
                         onActivate={() => setProgramsGroup("intl")}
                       />
+                      <div style={{ marginTop: 10, ...ddDivider }} />
+                      <div
+                        style={{
+                          padding: "10px 12px",
+                          fontSize: 12,
+                          fontWeight: 850,
+                          color: "rgba(15,23,42,0.65)",
+                        }}
+                      >
+                        Choose a group to see programs →
+                      </div>
                     </div>
 
                     <div style={flyoutRightStyle()} role="menu" aria-label="Programs submenu">
@@ -298,7 +294,7 @@ export default function AppHeader() {
                 )}
               </div>
 
-              {/* Students */}
+              {/* Students dropdown */}
               <div ref={studentsRef} style={{ position: "relative" }}>
                 <button
                   type="button"
@@ -307,10 +303,8 @@ export default function AppHeader() {
                     setProgramsOpen(false);
                   }}
                   style={navBtnStyle}
-                  aria-haspopup="menu"
-                  aria-expanded={studentsOpen}
                 >
-                  Students <span style={{ opacity: 0.9 }}>▼</span>
+                  Students ▾
                 </button>
 
                 {studentsOpen && (
@@ -338,7 +332,6 @@ export default function AppHeader() {
                   ...linkStyle,
                   textDecoration: isActive("/transparency") ? "underline" : "none",
                   textUnderlineOffset: 8,
-                  textDecorationThickness: 2,
                 }}
               >
                 Transparency
@@ -347,57 +340,38 @@ export default function AppHeader() {
           </div>
 
           {/* CENTER LOGO */}
-          <Link href="/" aria-label="Home" style={{ justifySelf: "center" }} onClick={closeAllMenus}>
-            <img
-              src="/logo.png"
-              alt="Royal International Flight School"
-              className="brandLogo"
-              style={{
-                width: "auto",
-                display: "block",
-                transform: "translateY(18px)",
-                filter: "drop-shadow(0 18px 40px rgba(0,0,0,0.38))",
-              }}
-            />
+          <Link href="/" aria-label="Home" className="brandAnchor" onClick={closeAllMenus}>
+            <span className="brandLogoWrap">
+              <img className="brandLogo" src="/logo.png" alt="Royal International Flight School" />
+            </span>
           </Link>
 
-          {/* RIGHT ACTIONS (desktop only) */}
-          <div className="desktopOnly" style={{ display: "flex", justifyContent: "flex-end", gap: 14 }}>
+          {/* RIGHT ACTIONS (desktop) — Our Instructors moved here */}
+          <div className="desktopOnly rightActions" style={{ justifyContent: "flex-end", gap: 12, alignItems: "center" }}>
             <Link
               href="/instructors"
               style={{
                 ...linkStyle,
                 textDecoration: isActive("/instructors") ? "underline" : "none",
                 textUnderlineOffset: 8,
-                textDecorationThickness: 2,
               }}
             >
               Our Instructors
             </Link>
 
-            <Link
-              href="/contact"
-              style={{
-                ...linkStyle,
-                textDecoration: isActive("/contact") ? "underline" : "none",
-                textUnderlineOffset: 8,
-                textDecorationThickness: 2,
-              }}
-            >
+            <Link href="/contact" style={linkStyle}>
               Contact
             </Link>
-
             <Link href="/book-orientation" style={ctaBtn}>
               Book Orientation
             </Link>
-
             <Link href="/students/portal" style={pillBtn}>
-              Student Login
+              Student Portal
             </Link>
           </div>
 
-          {/* MOBILE RIGHT CTA ONLY */}
-          <div className="mobileOnly" style={{ display: "flex", justifyContent: "flex-end" }}>
+          {/* RIGHT ACTIONS (mobile quick button) — IMPORTANT: no display inline style here */}
+          <div className="mobileOnly" style={{ justifyContent: "flex-end" }}>
             <Link href="/book-orientation" style={ctaBtn} onClick={closeAllMenus}>
               Book
             </Link>
@@ -415,15 +389,14 @@ export default function AppHeader() {
             background: "rgba(2,6,23,0.55)",
             backdropFilter: "blur(2px)",
             zIndex: 60,
-            padding: 10,
           }}
         >
           <div
             ref={mobilePanelRef}
             style={{
-              maxWidth: 560,
+              maxWidth: 1200,
               margin: "0 auto",
-              padding: "10px 10px 14px",
+              padding: "12px 16px 18px",
             }}
           >
             <div
@@ -432,7 +405,6 @@ export default function AppHeader() {
                 background: "rgba(255,255,255,0.96)",
                 boxShadow: "0 22px 80px rgba(0,0,0,0.28)",
                 overflow: "hidden",
-                maxHeight: "85vh",
               }}
             >
               <div style={{ padding: 14, borderBottom: "1px solid rgba(15,23,42,0.10)" }}>
@@ -445,17 +417,18 @@ export default function AppHeader() {
                     Book Orientation
                   </Link>
                   <Link href="/students/portal" onClick={closeAllMenus} style={mobilePill()}>
-                    Student Login
+                    Student Portal
                   </Link>
                 </div>
               </div>
 
-              <div style={{ padding: 10, overflow: "auto" }}>
+              <div style={{ padding: 10 }}>
                 <MobileLink href="/" label="Home" onGo={closeAllMenus} />
                 <MobileLink href="/about-us" label="About Us" onGo={closeAllMenus} />
                 <MobileLink href="/transparency" label="Transparency" onGo={closeAllMenus} />
                 <MobileLink href="/instructors" label="Our Instructors" onGo={closeAllMenus} />
 
+                {/* Programs accordion */}
                 <button type="button" onClick={() => setMobileProgramsOpen((v) => !v)} style={mobileAccordionBtn()}>
                   <span>Programs</span>
                   <span style={{ opacity: 0.7 }}>{mobileProgramsOpen ? "–" : "+"}</span>
@@ -507,6 +480,7 @@ export default function AppHeader() {
                   </div>
                 )}
 
+                {/* Students accordion */}
                 <button type="button" onClick={() => setMobileStudentsOpen((v) => !v)} style={mobileAccordionBtn()}>
                   <span>Students</span>
                   <span style={{ opacity: 0.7 }}>{mobileStudentsOpen ? "–" : "+"}</span>
@@ -526,43 +500,92 @@ export default function AppHeader() {
       )}
 
       <style>{`
-  @media (max-width: 980px) {
-    .desktopOnly { display: none !important; }
-    .burgerOnly { display: inline-flex !important; }
-    .mobileOnly { display: flex !important; }
+        .appHeader {
+          --headerH: 110px;
+          --padX: 16px;
 
-    /* 🔥 Mobile header */
-    .headerGrid {
-      height: 96px !important;
-      padding: 0 14px !important;
-    }
+          /* Desktop: 1.5x bigger logo */
+          --logoH: 180px;
+          --logoDrop: 12px;
+        }
 
-    /* 🔥 Logo 2.2× bigger */
-    .brandLogo {
-      height: 140px !important;
-      transform: translateY(8px) !important;
-    }
-  }
+        .topBar {
+          background: ${BRAND.navy};
+          border-bottom: 1px solid rgba(212,175,55,0.35);
+        }
 
-  @media (max-width: 520px) {
-    /* Slightly smaller for very small phones */
-    .brandLogo {
-      height: 120px !important;
-    }
-  }
+        .barInner {
+          max-width: 1200px;
+          margin: 0 auto;
+          height: var(--headerH);
+          padding: 0 var(--padX);
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          align-items: center;
+        }
 
-  @media (min-width: 981px) {
-    .desktopOnly { display: flex !important; }
-    .burgerOnly { display: none !important; }
-    .mobileOnly { display: none !important; }
-  }
-`}</style>
+        /* Make sure these behave as flex on desktop */
+        .desktopOnly { display: flex !important; }
+        .rightActions { display: flex; }
+        .burgerOnly { display: none !important; }
+        .mobileOnly { display: none !important; }
 
+        .burgerBtn {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          border: 1px solid rgba(255,255,255,0.18);
+          background: rgba(255,255,255,0.06);
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        .brandAnchor {
+          justify-self: center;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .brandLogoWrap {
+          height: var(--logoH);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transform: translateY(var(--logoDrop));
+          will-change: transform;
+          filter: drop-shadow(0 18px 40px rgba(0,0,0,0.38));
+        }
+
+        .brandLogo {
+          height: 100%;
+          width: auto;
+          display: block;
+          object-fit: contain;
+        }
+
+        @media (max-width: 980px) {
+          .desktopOnly { display: none !important; }
+          .burgerOnly { display: inline-flex !important; }
+          .mobileOnly { display: flex !important; }
+
+          .appHeader {
+            --headerH: 76px;
+            --padX: 14px;
+
+            /* Mobile: logo uses header space only */
+            --logoH: 100px;
+--logoDrop: 6px;   /* optional */
+
+            --logoDrop: 0px;
+          }
+        }
+      `}</style>
     </header>
   );
 }
-
-/* ----- Styles helpers ----- */
 
 function dropdownStyle(): React.CSSProperties {
   return {
@@ -601,8 +624,6 @@ function flyoutLeftStyle(): React.CSSProperties {
     padding: 10,
     background: "rgba(15,23,42,0.03)",
     borderRight: "1px solid rgba(15,39,66,0.10)",
-    display: "grid",
-    gap: 10,
   };
 }
 
@@ -651,7 +672,6 @@ function FlyoutGroupRow({
   );
 }
 
-/* Mobile styles */
 function mobileRow(): React.CSSProperties {
   return {
     display: "flex",
