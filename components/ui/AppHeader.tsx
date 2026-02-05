@@ -74,7 +74,7 @@ export default function AppHeader() {
   // US Residents programs
   const usProgramsItems: MenuItem[] = useMemo(
     () => [
-      { label: "Programs Overview", href: "/programs" },
+      { label: "Programs Overview", href: "/programs/us" },
       { label: "Private Pilot", href: "/programs/us/private" },
       { label: "Instrument Rating", href: "/programs/us/instrument" },
       { label: "Commercial Pilot", href: "/programs/us/commercial" },
